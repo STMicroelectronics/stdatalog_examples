@@ -1,0 +1,13 @@
+{
+    "tags": [],
+    "name": "STWIN_acquisition",
+    "description": "",
+    "uuid": "37166657-1b60-48d8-af80-5a771f9df56b",
+    "start_time": "2000-01-01T00:00:07.000Z",
+    "end_time": "2000-01-01T00:00:16.431Z",
+    "data_ext": ".dat",
+    "data_fmt": "HSD_2.0.0",
+    "interface": 0,
+    "schema_version": "2.0.0",
+    "c_type": 2
+}

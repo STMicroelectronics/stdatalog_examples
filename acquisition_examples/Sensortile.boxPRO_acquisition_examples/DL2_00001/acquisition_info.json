@@ -1,0 +1,13 @@
+{
+    "tags": [],
+    "name": "SensorTile.Box_PRO_acquisition",
+    "description": "",
+    "uuid": "0beb93d6-1190-49de-a3af-49c21043a808",
+    "start_time": "2000-01-01T00:00:08.000Z",
+    "end_time": "2000-01-01T00:00:17.659Z",
+    "data_ext": ".dat",
+    "data_fmt": "HSD_2.0.0",
+    "interface": 0,
+    "schema_version": "2.0.0",
+    "c_type": 2
+}
