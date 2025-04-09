@@ -42,7 +42,7 @@ import sys
 import os
 
 # Add the STDatalog SDK root directory to the sys.path to access the SDK packages
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 import click
 from stdatalog_core.HSD_utils.dtm import HSDatalogDTM

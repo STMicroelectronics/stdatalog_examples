@@ -40,10 +40,7 @@ import os
 import time
 
 # Add the STDatalog SDK root directory to the sys.path to access the SDK packages
-if sys.platform == "linux" or sys.platform == "linux2":
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
-else:
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\..\\..\\..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
 
 import subprocess
 import click
