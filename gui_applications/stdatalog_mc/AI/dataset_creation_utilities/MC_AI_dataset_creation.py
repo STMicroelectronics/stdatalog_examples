@@ -111,11 +111,6 @@ def MC_AI_dataset_creation(main_folder, message_signal):
         # Create datasets from the trimmed data
         dataset_creation(fmc_data_trimmed, fmc_time_trimmed, acc_data_trimmed, acc_time_trimmed, cf_path, message_signal)
 
-        fmc_timestamp = fmc_timestamp[fmc_end_index::]
-        fmc_data = fmc_data[fmc_end_index::]
-        acc_timestamp = acc_timestamp[acc_end_index::]
-        acc_data = acc_data[acc_end_index::]
-
     # After generating all files, correct the length of all class_file_path CSVs
     if class_file_paths:
         truncate_csv_files_to_min_length(class_file_paths)
