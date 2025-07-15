@@ -23,7 +23,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from stdatalog_core.HSD.HSDatalog import HSDatalog
-import matplotlib.pyplot as plt
+from stdatalog_core.HSD_utils.exceptions import MissingTagsException
 
 def main():
     """
@@ -220,7 +220,10 @@ def main():
     hsd.convert_dat_to_xsv(hsd_instance, component, start_time=0, end_time=-1, labeled=False, raw_data=False, output_folder=output_folder, file_format="CSV")
     print(f"To CSV conversion completed.")
     print(f"To TXT Conversion filtered by tags started...")
-    hsd.convert_dat_to_txt_by_tags(hsd_instance, component, start_time=0, end_time=-1, output_folder=output_folder, with_untagged = True, out_format="TXT")
+    try:
+        hsd.convert_dat_to_txt_by_tags(hsd_instance, component, start_time=0, end_time=-1, output_folder=output_folder, with_untagged = True, out_format="TXT")
+    except MissingTagsException as e:
+        print(f"Error: {e}")
     print(f"To TXT Conversion filtered by tags completed.")
     print(f"To HDF5 conversion started...")
     hsd.convert_acquisition_to_hdf5(hsd_instance, all_components, start_time=0, end_time=-1, labeled=False, output_folder=output_folder)
@@ -239,7 +242,6 @@ def main():
 
     # Plot data
     hsd.plot(hsd_instance, component, start_time=0, end_time=-1)
-    plt.show()
 
     print("\n---> End of HSDatalog APIs test script.")
 

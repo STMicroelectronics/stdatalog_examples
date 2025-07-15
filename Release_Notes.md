@@ -25,7 +25,26 @@ This folder contains a set of examples and tutorials to help you get started wit
 # Update History
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section1" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section2" checked aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true">v1.1.0 / 20-Jun-25</label>
+<div>
+
+
+## Main Changes
+
+### Maintenance Release
+
+- Added support to Python 3.13
+- Updated SDK examples with plots: use Plotly instead of matplotlib
+- Fixed separator char ('\\' to '/')
+- Fixed trimming in MC_AI_dataset_creation application
+
+
+</div>
+:::
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
 <label for="collapse-section1" aria-hidden="true">v1.0.0 / 17-Jan-25</label>
 <div>
 
