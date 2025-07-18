@@ -6,11 +6,11 @@ This is a prototype GUI to show the performance of the Assisted Segmentation alg
 
 ## Running the Application
 
-1. **Prepare the Data**: The application expects a CSV file named `data/A5Y7FI_data.csv` with columns `AccX_LSB`, `AccY_LSB`, and `AccZ_LSB`. Ensure this file is present and correctly formatted. Please modify the code in `demo_gui.py` to load other types of files.
+1. **Prepare the Data**: The application expects a CSV file named `data/A5Y7FI_data.csv` with columns `AccX_LSB`, `AccY_LSB`, and `AccZ_LSB`. Ensure this file is present and correctly formatted. Please modify the code in `stdatalog_data_segmentation_GUI.py` to load other types of files.
 
-2. **Launch the Application**: Navigate to the directory containing `demo_gui.py` and run the following command in your terminal:
+2. **Launch the Application**: Navigate to the directory containing `stdatalog_data_segmentation_GUI.py` and run the following command in your terminal:
 
-`python demo_gui.py`
+`python stdatalog_data_segmentation_GUI.py`
 
 
 ## Using the Application
@@ -32,4 +32,4 @@ To exit the application, simply close the main window or terminate the process i
 ## Notes
 
 - The application is a demonstration of interactive data segmentation and analysis. It is not optimized for large datasets or production use.
-- For further customization or to use with different datasets, modifications to `demo_gui.py` and associated modules may be required.
+- For further customization or to use with different datasets, modifications to `stdatalog_data_segmentation_GUI.py` and associated modules may be required.
