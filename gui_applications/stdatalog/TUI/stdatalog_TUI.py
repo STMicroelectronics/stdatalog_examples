@@ -254,7 +254,7 @@ class HSDInfo():
         HSDLink.set_sw_tag_on_off(self.hsd_link, self.selected_device_id, t_id, self.tag_status_list[t_id])
 
     def start_log(self):
-        self.is_log_started = HSDLink.start_log(self.hsd_link, self.selected_device_id, self.tui_flags.sub_datetime_folder)
+        self.is_log_started = HSDLink.start_log(self.hsd_link, self.selected_device_id, sub_folder=self.tui_flags.sub_datetime_folder)
         self.threads_stop_flags = []
         self.sensor_data_files = []
 
