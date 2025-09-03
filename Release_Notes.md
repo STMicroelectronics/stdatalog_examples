@@ -11,7 +11,7 @@ header-includes: <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png
 # Release Notes for <mark>stdatalog_examples</mark> 
 Copyright &copy; 2025 STMicroelectronics
     
-[![ST logo](../_htmresc/st_logo_2020.png)](https://www.st.com){.logo}
+[![ST logo](_htmresc/st_logo_2020.png)](https://www.st.com){.logo}
 </center>
 
 
@@ -23,6 +23,39 @@ This folder contains a set of examples and tutorials to help you get started wit
 
 ::: {.col-sm-12 .col-lg-8}
 # Update History
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">v1.2.1 / 29-Aug-25</label>
+<div>
+
+
+## Main Changes
+
+### Patch Release
+
+- Solved issue #1 - pull request #2: accepted proposal from @YumTaha
+- Added stdatalog_API_examples_SerialLink.py example in stdatalog_examples\function_tests
+
+
+</div>
+:::
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">v1.2.0 / 24-Jul-25</label>
+<div>
+
+
+## Main Changes
+
+### Maintenance Release
+
+- Solved issue #3 Documentation Mismatch in Assisted Segmentation README
+
+
+</div>
+:::
 
 ::: {.collapse}
 <input type="checkbox" id="collapse-section2" checked aria-hidden="true">

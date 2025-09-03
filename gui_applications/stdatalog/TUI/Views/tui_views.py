@@ -22,6 +22,23 @@ from asciimatics.widgets import Frame, ListBox, Layout, Divider, VerticalDivider
 from stdatalog_core.HSD_link import HSDLink_v2
 from stdatalog_core.HSD_utils.exceptions import WrongDeviceConfigFile
 
+def get_fw_info_value(fw_info_dict, key, default_value="Unknown"):
+    """
+    Helper function to safely extract values from firmware info dictionary.
+    fw_info_dict can be either a nested dict with 'firmware_info' key or the firmware_info dict directly.
+    """
+    if fw_info_dict is None:
+        return default_value
+
+    # Handle nested structure
+    if isinstance(fw_info_dict, dict) and 'firmware_info' in fw_info_dict:
+        return fw_info_dict['firmware_info'].get(key, default_value)
+    # Handle direct firmware_info dict
+    elif isinstance(fw_info_dict, dict):
+        return fw_info_dict.get(key, default_value)
+    else:
+        return default_value
+
 class HSDMainView(Frame):
     def __init__(self, screen, hsd_info):
         super(HSDMainView, self).__init__(screen,
@@ -97,11 +114,24 @@ class HSDMainView(Frame):
             no_device_msg = "No device connected!"
             dev_list = []
             self._hsd_info_model.selected_device_id = None
-        
+
+        # Helper function to extract firmware info from device structure
+        def get_device_info(device_data, index):
+            if 'devices' in device_data and len(device_data['devices']) > 0:
+                device = device_data['devices'][0]
+                components = device.get('components', [])
+                for comp in components:
+                    if isinstance(comp, dict) and 'firmware_info' in comp:
+                        fw_info = comp['firmware_info']
+                        alias = fw_info.get('alias', f'Device_{index}')
+                        part_number = fw_info.get('part_number', 'Unknown')
+                        return f"{index}) [{alias}] - {part_number}"
+            return f"{index}) Unknown Device"
+
         # Create the form for displaying the list of devices.
         self._list_view = ListBox(
             Widget.FILL_FRAME,
-            [("{}) [{}] - {}".format(i,dev.fw_info.alias, dev.fw_info.part_number), i) for i,dev in enumerate(dev_list)],
+            [(get_device_info(dev, i), i) for i, dev in enumerate(dev_list)],
             name="device_list",
             add_scroll_bar=True,
             on_change=self._on_pick,
@@ -121,15 +151,15 @@ class HSDMainView(Frame):
             dev_id = dev_sn = dev_al = dev_pn = dev_url = dev_fwn = dev_fwv = dev_dfe = dev_dff = dev_ns = ""
         else:
             dev_id = "- id: {}".format(self._hsd_info_model.selected_device_id)
-            dev_sn = "- sn: {}".format(self._hsd_info_model.selected_fw_info.serial_number)
-            dev_al = "- alias: {}".format(self._hsd_info_model.selected_fw_info.alias)
-            dev_pn = "- pn: {}".format(self._hsd_info_model.selected_fw_info.part_number)
-            dev_url = "- url: {}".format(self._hsd_info_model.selected_fw_info.url)
-            dev_fwn = "- fw_name: {}".format(self._hsd_info_model.selected_fw_info.fw_name)
-            dev_fwv = "- fw_version: {}".format(self._hsd_info_model.selected_fw_info.fw_version)
-            dev_dfe = "- data_file_ext: {}".format(self._hsd_info_model.selected_fw_info.data_file_ext)
-            dev_dff = "- data_file_format: {}".format(self._hsd_info_model.selected_fw_info.data_file_format)
-            dev_ns = "- n_sensor: {}".format(self._hsd_info_model.selected_fw_info.n_sensor)
+            dev_sn = "- sn: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'serial_number', 'Unknown'))
+            dev_al = "- alias: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'alias'))
+            dev_pn = "- pn: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'part_number'))
+            dev_url = "- url: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'device_url'))
+            dev_fwn = "- fw_name: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'fw_name'))
+            dev_fwv = "- fw_version: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'fw_version'))
+            dev_dfe = "- data_file_ext: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'data_file_ext', 'dat'))
+            dev_dff = "- data_file_format: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'data_file_format', 'JSON'))
+            dev_ns = "- n_sensor: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'n_sensor', 'Unknown'))
 
         self.dev_id_lbl = Label(dev_id)
         self.dev_sn_lbl = Label(dev_sn)
@@ -172,15 +202,15 @@ class HSDMainView(Frame):
 
                 self._hsd_info_model.update_fw_info()
                 self.dev_id_lbl.text = "- id: {}".format(self._hsd_info_model.selected_device_id)
-                self.dev_sn_lbl.text = "- sn: {}".format(self._hsd_info_model.selected_fw_info.serial_number)
-                self.dev_al_lbl.text = "- alias: {}".format(self._hsd_info_model.selected_fw_info.alias)
-                self.dev_pn_lbl.text = "- pn: {}".format(self._hsd_info_model.selected_fw_info.part_number)
-                self.dev_url_lbl.text = "- url: {}".format(self._hsd_info_model.selected_fw_info.url)
-                self.dev_fwn_lbl.text = "- fw_name: {}".format(self._hsd_info_model.selected_fw_info.fw_name)
-                self.dev_fwv_lbl.text = "- fw_version: {}".format(self._hsd_info_model.selected_fw_info.fw_version)
-                self.dev_dfe_lbl.text = "- data_file_ext: {}".format(self._hsd_info_model.selected_fw_info.data_file_ext)
-                self.dev_dff_lbl.text = "- data_file_format: {}".format(self._hsd_info_model.selected_fw_info.data_file_format)
-                self.dev_ns_lbl.text = "- n_sensor: {}".format(self._hsd_info_model.selected_fw_info.n_sensor)
+                self.dev_sn_lbl.text = "- sn: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'serial_number', 'Unknown'))
+                self.dev_al_lbl.text = "- alias: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'alias'))
+                self.dev_pn_lbl.text = "- pn: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'part_number'))
+                self.dev_url_lbl.text = "- url: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'device_url'))
+                self.dev_fwn_lbl.text = "- fw_name: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'fw_name'))
+                self.dev_fwv_lbl.text = "- fw_version: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'fw_version'))
+                self.dev_dfe_lbl.text = "- data_file_ext: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'data_file_ext', 'dat'))
+                self.dev_dff_lbl.text = "- data_file_format: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'data_file_format', 'JSON'))
+                self.dev_ns_lbl.text = "- n_sensor: {}".format(get_fw_info_value(self._hsd_info_model.selected_fw_info, 'n_sensor', 'Unknown'))
 
     def _on_select(self):
         self.save()
@@ -192,7 +222,7 @@ class HSDMainView(Frame):
         self._hsd_info_model.update_device_list()
         if self._hsd_info_model.device_list is not None:
             self._no_device_label.text = ""
-            self._list_view.options = [("{}) [{}] - {}".format(i,dev.fw_info.alias, dev.fw_info.part_number), i) for i,dev in enumerate(self._hsd_info_model.device_list)]
+            self._list_view.options = [("{}) [{}] - {}".format(i, get_fw_info_value(dev, 'alias'), get_fw_info_value(dev, 'part_number')), i) for i,dev in enumerate(self._hsd_info_model.device_list)]
         else:
             self._no_device_label.text = "No device connected!"
             self._no_device_label.custom_colour = "invalid"
@@ -379,10 +409,14 @@ class HSDLoggingView(Frame):
                 self.remaining_time_lbl.custom_colour = "label"
 
     def _stop_and_quit(self):
+        self._hsd_info_model.is_shutting_down = True
         if self._hsd_info_model.is_log_started:
             self._hsd_info_model.stop_log()
         self._hsd_info_model.is_log_manually_stopped = False
-        del self._hsd_info_model.hsd_link
+        try:
+            del self._hsd_info_model.hsd_link
+        except:
+            pass  # Ignore errors when deleting hsd_link
         self._quit()
 
     def _on_tag_select(self):
@@ -401,6 +435,9 @@ class HSDLoggingView(Frame):
         self._tag_list_view.start_line = last_tag_start
 
     def _update(self, frame_no):
+        if self._hsd_info_model.is_shutting_down:
+            return
+
         if frame_no - self._last_frame >= self.frame_update_count or self._last_frame == 0:
             self._last_frame = frame_no
             last_selection = self._sensor_list_view.value

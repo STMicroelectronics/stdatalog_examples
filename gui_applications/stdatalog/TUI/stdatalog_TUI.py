@@ -77,7 +77,7 @@ from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 
-from stdatalog_pnpl.DTDL.device_template_manager import DeviceTemplateManager
+from stdatalog_pnpl.DTDL.device_template_manager import DeviceTemplateManager, DeviceCatalogManager
 from stdatalog_core.HSD_link.HSDLink import HSDLink
 from stdatalog_examples.gui_applications.stdatalog.TUI.Views.tui_views import HSDMainView, HSDLoggingView
 class HSDInfo():
@@ -110,6 +110,7 @@ class HSDInfo():
     selected_ispu_id = None
     is_log_started = False
     is_log_manually_stopped = False
+    is_shutting_down = False   
     output_acquisition_path = None
     threads_stop_flags = []
     tag_status_list = []
@@ -149,7 +150,7 @@ class HSDInfo():
         return False
     
     def load_device_template(self, board_id, fw_id):
-        dev_template_json = DeviceTemplateManager.query_dtdl_model(board_id, fw_id)
+        dev_template_json = DeviceCatalogManager.query_dtdl_model(board_id, fw_id)
         if isinstance(dev_template_json,dict):
             fw_name = self.hsd_link.get_firmware_info(self.selected_device_id).get("firmware_info").get("fw_name")
             if fw_name is not None:
@@ -195,8 +196,15 @@ class HSDInfo():
                 shutil.copy(self.tui_flags.file_config, self.output_acquisition_path)
     
     def update_sensor_list(self):
-        if self.selected_device_id is not None:
+        if self.is_shutting_down or self.selected_device_id is None:
+            return
+        try:
             self.sensor_list = HSDLink.get_sensor_list(self.hsd_link, self.selected_device_id, only_active=True)
+        except Exception as e:
+            log.warning(f"Could not update sensor list: {e}")
+            # Keep the existing sensor list if update fails
+            if self.sensor_list is None:
+                self.sensor_list = []
     
     def init_sensor_data_counters(self):
         all_sensor_list = HSDLink.get_sensor_list(self.hsd_link, self.selected_device_id, only_active=False)
@@ -246,7 +254,7 @@ class HSDInfo():
         HSDLink.set_sw_tag_on_off(self.hsd_link, self.selected_device_id, t_id, self.tag_status_list[t_id])
 
     def start_log(self):
-        self.is_log_started = HSDLink.start_log(self.hsd_link, self.selected_device_id, self.tui_flags.sub_datetime_folder)
+        self.is_log_started = HSDLink.start_log(self.hsd_link, self.selected_device_id, sub_folder=self.tui_flags.sub_datetime_folder)
         self.threads_stop_flags = []
         self.sensor_data_files = []
 
@@ -261,10 +269,29 @@ class HSDInfo():
             f.close()
         HSDLink.stop_log(self.hsd_link, self.selected_device_id)
         self.is_log_started = False
-        HSDLink.save_json_device_file(self.hsd_link, self.selected_device_id, self.output_acquisition_path)
-        log.info("Device Config json File correctly saved")
-        HSDLink.save_json_acq_info_file(self.hsd_link, self.selected_device_id, self.output_acquisition_path)
-        log.info("Acquisition Info json File correctly saved")
+
+        # Try to save device JSON file with error handling and retry
+        import time
+        for attempt in range(3):  # Try up to 3 times
+            try:
+                if attempt > 0:
+                    time.sleep(0.5)  # Wait 500ms between attempts
+                HSDLink.save_json_device_file(self.hsd_link, self.selected_device_id, self.output_acquisition_path)
+                log.info("Device Config json File correctly saved")
+                break  # Success, exit the retry loop
+            except Exception as e:
+                if attempt == 2:  # Last attempt
+                    log.warning(f"Could not save device config JSON file after {attempt + 1} attempts: {e}")
+                else:
+                    log.debug(f"Attempt {attempt + 1} to save device config failed, retrying...")
+
+        # Try to save acquisition info file with error handling
+        try:
+            HSDLink.save_json_acq_info_file(self.hsd_link, self.selected_device_id, self.output_acquisition_path)
+            log.info("Acquisition Info json File correctly saved")
+        except Exception as e:
+            log.warning(f"Could not save acquisition info JSON file: {e}")
+
         #Save ISPU output format json file if passed as CLI parameter
         self.save_ai_ucf_file()
         self.save_ispu_out_fmt_file()
