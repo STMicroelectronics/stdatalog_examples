@@ -6,6 +6,7 @@ This folder contains a set of examples and tutorials to help you get started wit
 - **function_tests:** Contains two test scripts that demonstrate the functionalities of the **[stdatalog_core](https://github.com/STMicroelectronics/stdatalog_core)** package. These scripts are intended to be used as a reference for developers who want to use the HSDatalog and HSDLink classes in their projects.
     - **stdatalog_API_examples_HSDatalog.py:** Example to manage and manipulate existing acquisitions and datasets.
     - **stdatalog_API_examples_HSDLink.py:** Example of how to connect to a USB device and control the data logging process. (*NOTE: This script needs a compatible device (board flashed with **[FP-SNS-DATALOG2](https://github.com/STMicroelectronics/fp-sns-datalog2)**) connected to the PC*).
+    - **stdatalog_API_examples_SerialLink.py:** Example of how to connect to a serial device (UART via ST-link/USB) and control the data logging process. (*NOTE: This script needs a compatible device (board flashed with **[STSW-SDATALOG](https://www.st.com/en/embedded-software/stsw-sdatalog.html)**) connected to the PC*).
 - **how-to_notebooks:** Contains a set of Jupyter notebooks that demonstrate how to use the **[stdatalog_core](https://github.com/STMicroelectronics/stdatalog_core)** package. Run them with the `-h` or `--help` option to visualize the manual and the usage examples.
     - **np_stdatalog_core.ipynb:** Demonstrates how to use the **[stdatalog_core](https://github.com/STMicroelectronics/stdatalog_core)** package to manage acquired data folders extracting and visualizing information and data.
     - **np_stdatalog_converters.ipynb:** Demonstrates how to use the **[stdatalog_core](https://github.com/STMicroelectronics/stdatalog_core)** module focusing on data format conversion features.
@@ -20,6 +21,7 @@ This folder contains a set of examples and tutorials to help you get started wit
     - **stdatalog_plot.py:** Plots data files.
     - **stdatalog_plot_large.py:** Plots large data files ensuring out-of-core plots for large datasets.
     - **stdatalog_hdf5_viewer.py:** Visualizes the content of HDF5 files.
+	- **stdatalog_sensors_streaming.py:** Demonstrates how to set up a threaded data streaming application using the STDatalog SDK.
 - **gui_applications:** Contains a set of ready-to-use graphical applications that demonstrate the functionalities of the **[STDATALOG-PYSDK](https://github.com/STMicroelectronics/stdatalog-pysdk)** leveraging the **stdatalog_gui** in sinergy with all the other SDK packages.
     - **stdatalog**: Contains a set of applications that realizes a complete data logging and data monitoring system.
         - **GUI**
@@ -30,7 +32,7 @@ This folder contains a set of examples and tutorials to help you get started wit
         - **Datalog**
             - **stdatalog_MC_GUI.py** GUI application based on the **stdatalog_GUI.py** that adds the capability to retrieve and display motor control telemetries and to set motor control parameters.
         - **AI**
-            - **stdatalog_MC_AI_GUI.py** GUI application based on the **stdatalog_GUI.py** that adds the capability to display AI classification results on different motor fault conditions.
+            - **stdatalog_MC_CubeAI_GUI.py** and **stdatalog_MC_NanoEdgeAI_GUI** GUI application based on the **stdatalog_GUI.py** that adds the capability to display AI classification results on different motor fault conditions.
     - **stdatalog_ultrasound_fft:** This example application is designed to work with the **[UltrasoundFFT](https://github.com/STMicroelectronics/fp-sns-datalog2/tree/main/Projects/STM32U585AI-STWIN.box/Applications/UltrasoundFFT)** application FW contained in the **[FP-SNS-DATALOG2](https://github.com/STMicroelectronics/fp-sns-datalog2)** function pack.
         - **ultrasound_fft_app.py:** GUI application to display analog microphone live data and its FFT. These signals are both streamed from the connected device (The FFT is performed directly on the board).
     - **assisted_segmentation.py"":** GUI application to perform assisted segmentation of an existing acquisition.

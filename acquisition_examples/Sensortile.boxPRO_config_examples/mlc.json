@@ -4,7 +4,7 @@
     "devices": [
         {
             "board_id": 13,
-            "fw_id": 17,
+            "fw_id": 22,
             "protocol_id": 2,
             "sn": "003900495130501620333154",
             "pnpl_responses": true,
@@ -14,11 +14,11 @@
                     "DeviceInformation": {
                         "manufacturer": "STMicroelectronics",
                         "model": "STEVAL-MKBOXPRO",
-                        "swVersion": "3.1.0",
+                        "swVersion": "3.2.0",
                         "osName": "AzureRTOS",
                         "processorArchitecture": "ARM Cortex-M33",
                         "processorManufacturer": "STMicroelectronics",
-                        "totalStorage": 4,
+                        "totalStorage": 0,
                         "totalMemory": 784
                     }
                 },
@@ -26,7 +26,7 @@
                     "firmware_info": {
                         "alias": "STBOX_PRO_001",
                         "fw_name": "FP-SNS-DATALOG2_Datalog2",
-                        "fw_version": "3.1.0",
+                        "fw_version": "3.2.0",
                         "part_number": "FP-SNS-DATALOG2",
                         "device_url": "https://www.st.com/sensortileboxpro",
                         "fw_url": "https://github.com/STMicroelectronics/fp-sns-datalog2",
@@ -123,7 +123,7 @@
                 {
                     "log_controller": {
                         "log_status": false,
-                        "sd_mounted": true,
+                        "sd_mounted": false,
                         "sd_failed": false,
                         "controller_type": 0,
                         "c_type": 2
@@ -148,9 +148,9 @@
                         "dim": 3,
                         "ioffset": 0,
                         "measodr": 0,
-                        "usb_dps": 30,
-                        "sd_dps": 512,
-                        "sensitivity": 0.00048799999058246623,
+                        "usb_dps": 240,
+                        "sd_dps": 2048,
+                        "sensitivity": 0.0004879999905824661,
                         "data_type": "int16",
                         "sensor_annotation": "",
                         "sensor_category": 0,
@@ -162,7 +162,7 @@
                                 "format": "int16_t",
                                 "elements": 40,
                                 "channels": 3,
-                                "multiply_factor": 0.00048799999058246623,
+                                "multiply_factor": 0.0004879999905824661,
                                 "odr": 666
                             }
                         },
@@ -212,8 +212,8 @@
                         "dim": 1,
                         "ioffset": 0,
                         "measodr": 0,
-                        "usb_dps": 12,
-                        "sd_dps": 16,
+                        "usb_dps": 40,
+                        "sd_dps": 512,
                         "sensitivity": 1,
                         "data_type": "float_t",
                         "sensor_annotation": "",
@@ -224,7 +224,7 @@
                                 "enable": false,
                                 "unit": "hPa",
                                 "format": "float_t",
-                                "elements": 10,
+                                "elements": 60,
                                 "channels": 1,
                                 "multiply_factor": 1,
                                 "odr": 200
@@ -245,8 +245,8 @@
                         "samples_per_ts": 1000,
                         "dim": 1,
                         "ioffset": 0,
-                        "usb_dps": 1600,
-                        "sd_dps": 10752,
+                        "usb_dps": 4800,
+                        "sd_dps": 31744,
                         "sensitivity": 3.0517578125e-05,
                         "data_type": "int16",
                         "sensor_annotation": "",
@@ -265,8 +265,8 @@
                         "dim": 1,
                         "ioffset": 0,
                         "measodr": 0,
-                        "usb_dps": 12,
-                        "sd_dps": 16,
+                        "usb_dps": 40,
+                        "sd_dps": 512,
                         "sensitivity": 1,
                         "data_type": "float_t",
                         "sensor_annotation": "",
@@ -277,7 +277,7 @@
                                 "enable": false,
                                 "unit": "°C",
                                 "format": "float_t",
-                                "elements": 10,
+                                "elements": 60,
                                 "channels": 1,
                                 "multiply_factor": 1,
                                 "odr": 200
@@ -290,15 +290,15 @@
                 },
                 {
                     "lsm6dsv16x_acc": {
-                        "odr": 2,
+                        "odr": 3,
                         "fs": 0,
                         "enable": true,
-                        "samples_per_ts": 30,
+                        "samples_per_ts": 60,
                         "dim": 3,
                         "ioffset": 0,
                         "measodr": 0,
-                        "usb_dps": 14,
-                        "sd_dps": 192,
+                        "usb_dps": 18,
+                        "sd_dps": 372,
                         "sensitivity": 6.0999998822808266e-05,
                         "data_type": "int16",
                         "sensor_annotation": "",
@@ -309,10 +309,10 @@
                                 "enable": false,
                                 "unit": "g",
                                 "format": "int16_t",
-                                "elements": 16,
+                                "elements": 31,
                                 "channels": 3,
-                                "multiply_factor": 0.00048799999058246623,
-                                "odr": 30
+                                "multiply_factor": 0.0004879999905824661,
+                                "odr": 60
                             }
                         },
                         "c_type": 0,

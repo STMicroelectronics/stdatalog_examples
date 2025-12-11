@@ -19,7 +19,7 @@ import sys
 import os
 
 # Add the STDatalog SDK root directory to the sys.path to access the SDK packages
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../..')))
 
 from datetime import datetime
 # import cProfile
@@ -41,8 +41,8 @@ def main():
     mainWindow.setAppCredits("Edge AI enabled Smart Actuation and Sensing")
     mainWindow.setWindowTitle("Edge AI enabled Smart Actuation and Sensing")
     mainWindow.setAppVersion("v1.0.0")
-    mainWindow.setAIClassifierImages(["Motor_Normal_class", "Motor_Fault_class"])
-    mainWindow.setAIClassifierTool("Nanoedge_STM32")
+    mainWindow.setAIClassifierImages(["Motor_Fault_class", "Motor_Normal_class"])
+    mainWindow.setAIClassifierTool("CubeAI_STM32")
     mainWindow.setLogMsg("Device is logging --> Board Configuration has been disabled.\nNow you can label your acquisition using the [Tags Information] Component")
     mainWindow.showMaximized()
     app.setAttribute(QtCore.Qt.AA_Use96Dpi)
