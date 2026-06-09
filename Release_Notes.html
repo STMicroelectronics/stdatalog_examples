@@ -31,9 +31,38 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">v1.3.0 / 14-Nov-25</label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">v1.4.0 / 15-May-26</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<h3 id="maintenance-release">Maintenance Release</h3>
+<ul>
+<li>Refactored and enhance documentation across multiple plugins
+<ul>
+<li>Removed unnecessary whitespace and added newlines for code consistency in 0_ML_AI_plugin.py.</li>
+<li>Added pylint skip directive to dToF_PeopleCounting plugins to suppress warnings.</li>
+<li>Improved docstrings in CSVDataSavePlugin.py for clarity on methods and parameters.</li>
+<li>Enhanced comments and docstrings in InclinationGamePlugin.py for better understanding of functionality.</li>
+<li>Updated FilterPlugin.py and ProcessPlugin.py with detailed docstrings and comments for clarity.</li>
+<li>Added initialization messages and improved logging in HelloWorldPlugin and its status variant.</li>
+<li>Implemented GUI functionality in FilterPlugin_GUI.py with appropriate docstrings and comments.</li>
+</ul></li>
+<li>Updated examples and documentation to support unified JSON configuration for MLC and ISPU sensors</li>
+<li>Added JSON configuration examples</li>
+<li>Refactored sensor streaming example
+<ul>
+<li>Deleted the original stdatalog_sensors_streaming.py file.</li>
+<li>Introduced stdatalog_sensors_streaming.py for a combined streaming example supporting USB and serial transports.</li>
+<li>Created stdatalog_sensors_streaming_common.py to encapsulate shared logic for streaming.</li>
+<li>Added stdatalog_sensors_streaming_serial.py for serial-specific streaming functionality.</li>
+<li>Introduced stdatalog_sensors_streaming_usb.py for USB/PnPL streaming example.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">v1.3.0 / 14-Nov-25</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update">Maintenance Release and Product Update</h3>
 <ul>
 <li>Reshaped GUI examples for FP-IND-DATALOGMC: created dedicated folder and scripts for CubeAI and NanoEdgeAI Studio applications</li>
@@ -45,7 +74,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">v1.2.1 / 29-Aug-25</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="patch-release">Patch Release</h3>
 <ul>
 <li>Solved issue #1 - pull request #2: accepted proposal from <span class="citation" data-cites="YumTaha">@YumTaha</span></li>
@@ -56,8 +85,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">v1.2.0 / 24-Jul-25</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release">Maintenance Release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance Release</h3>
 <ul>
 <li>Solved issue #3 Documentation Mismatch in Assisted Segmentation README</li>
 </ul>
@@ -66,8 +95,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">v1.1.0 / 20-Jun-25</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance Release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance Release</h3>
 <ul>
 <li>Added support to Python 3.13</li>
 <li>Updated SDK examples with plots: use Plotly instead of matplotlib</li>
@@ -79,7 +108,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">v1.0.0 / 17-Jan-25</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="first-official-release">First official release</h3>
 </div>
 </div>

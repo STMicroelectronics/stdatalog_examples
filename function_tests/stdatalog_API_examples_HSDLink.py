@@ -5,15 +5,18 @@
 #  * @author  SRA
 #  * @version 1.0.0
 #  * @date    11-Jul-2024
-# *****************************************************************************
-#
-#                   Copyright (c) 2020 STMicroelectronics.
-#                             All rights reserved
-#
-#   This software component is licensed by ST under BSD-3-Clause license,
-#   the "License"; You may not use this file except in compliance with the
-#   License. You may obtain a copy of the License at:
-#                        https://opensource.org/licenses/BSD-3-Clause
+# ******************************************************************************
+# * @attention
+# *
+# * Copyright (c) 2022 STMicroelectronics.
+# * All rights reserved.
+# *
+# * This software is licensed under terms that can be found in the LICENSE file
+# * in the root directory of this software component.
+# * If no LICENSE file comes with this software, it is provided AS-IS.
+# *
+# *
+# ******************************************************************************
 
 
 import sys
@@ -243,15 +246,19 @@ def main():
     updated_ispu_sensor_list = hsd_link.get_updated_ispu_sensor_list(hsd_link_instance, device_id, None)
     print(f"Updated ISPU Sensor List: {updated_ispu_sensor_list}")
 
-    # Upload MLC UCF file (Check in your setup there is a MLC sensor available and update the "path/to/mlc.ucf" to a valid MLC UCF file)
-    # [UNCOMMENT] The following lines to upload a UCF file to program a MLC sensor
-    # mcl_sensor_comp_name = "ism330dhcx_mlc" # Change the sensor name to match the MLC sensor name in your setup
-    # hsd_link.upload_ucf_file(device_id, mcl_sensor_comp_name, "path/to/mlc.ucf")
+    # Upload a unified JSON configuration file to an MLC sensor.
+    # [UNCOMMENT] The following lines to program an MLC sensor with a reg_config JSON file.
+    # mlc_sensor_comp_name = "ism330dhcx_mlc"  # Change the sensor name to match the MLC sensor name in your setup.
+    # hsd_link.upload_mlc_json_file(hsd_link_instance, device_id, "path/to/ism330dhcx_6d_position_recognition.json")
 
-    # Upload ISPU UCF file (Check in your setup there is a ISPU sensor available and update the "path/to/ispu.ucf" to a valid ISPU UCF file)
-    # [UNCOMMENT] The following lines to upload a UCF file to program a ISPU sensor
-    # ispu_sensor_comp_name = "ism330is_ispu" # Change the sensor name to match the MLC sensor name in your setup
-    # hsd_link.upload_ucf_file(device_id, ispu_sensor_comp_name, "path/to/ispu.ucf")
+    # Upload a unified JSON configuration file to an ISPU sensor.
+    # [UNCOMMENT] The following lines to program an ISPU sensor with a reg_config JSON file that also contains outputs metadata.
+    # ispu_sensor_comp_name = "ism330is_ispu"  # Change the sensor name to match the ISPU sensor name in your setup.
+    # hsd_link.upload_ispu_json_file(hsd_link_instance, device_id, "path/to/ispu_config.json")
+
+    # Legacy compatibility paths are still available when you only have UCF assets.
+    # hsd_link.upload_mlc_ucf_file(hsd_link_instance, device_id, "path/to/mlc.ucf")
+    # hsd_link.upload_ispu_ucf_file(hsd_link_instance, device_id, "path/to/ispu.ucf", "path/to/ispu_output_format.json")
 
     # Set RTC time on the device
     hsd_link.set_RTC(hsd_link_instance, device_id)

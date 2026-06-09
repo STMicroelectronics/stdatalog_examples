@@ -82,17 +82,20 @@ class HSDMainView(Frame):
             layout_tui_flags.add_widget(Label("- Device configuration file: Default DeviceConfig from the device"))
 
         if self._hsd_info_model.tui_flags.ucf_file is not None and os.path.exists(self._hsd_info_model.tui_flags.ucf_file):
-            self.mlc_msg_lbl = Label("- Selected UCF file: {}".format(self._hsd_info_model.tui_flags.ucf_file))
+            self.mlc_msg_lbl = Label("- Selected AI config file: {}".format(self._hsd_info_model.tui_flags.ucf_file))
             layout_tui_flags.add_widget(self.mlc_msg_lbl)
 
         else:
-            self.mlc_msg_lbl = Label("- Selected UCF file: No UCF file selected")
+            self.mlc_msg_lbl = Label("- Selected AI config file: No AI config file selected")
             self.mlc_msg_lbl.custom_colour = "control"
             layout_tui_flags.add_widget(self.mlc_msg_lbl)
 
         if self._hsd_info_model.tui_flags.ispu_out_fmt is not None and os.path.exists(self._hsd_info_model.tui_flags.ispu_out_fmt):
-            self.ispu_out_fmt_msg_lbl = Label("- Selected ISPU Output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt))
-            layout_tui_flags.add_widget(self.ispu_out_fmt_msg_lbl)
+            self.ispu_out_fmt_msg_lbl = Label("- Selected legacy ISPU output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt))
+        else:
+            self.ispu_out_fmt_msg_lbl = Label("- Selected legacy ISPU output format: None")
+            self.ispu_out_fmt_msg_lbl.custom_colour = "control"
+        layout_tui_flags.add_widget(self.ispu_out_fmt_msg_lbl)
 
         if self._hsd_info_model.tui_flags.time_sec != -1:
             layout_tui_flags.add_widget(Label("- Duration: {}".format(timedelta(seconds = self._hsd_info_model.tui_flags.time_sec))))
@@ -300,17 +303,20 @@ class HSDLoggingView(Frame):
         layout_tui_flags.add_widget(self.device_config_label)
 
         if self._hsd_info_model.tui_flags.ucf_file is not None and os.path.exists(self._hsd_info_model.tui_flags.ucf_file):
-            self.mlc_msg_lbl = Label("- Selected UCF file: {}".format(self._hsd_info_model.tui_flags.ucf_file))
+            self.mlc_msg_lbl = Label("- Selected AI config file: {}".format(self._hsd_info_model.tui_flags.ucf_file))
             layout_tui_flags.add_widget(self.mlc_msg_lbl)
 
         else:
-            self.mlc_msg_lbl = Label("- Selected UCF file: No UCF file selected")
+            self.mlc_msg_lbl = Label("- Selected AI config file: No AI config file selected")
             self.mlc_msg_lbl.custom_colour = "control"
             layout_tui_flags.add_widget(self.mlc_msg_lbl)
         
         if self._hsd_info_model.tui_flags.ispu_out_fmt is not None and os.path.exists(self._hsd_info_model.tui_flags.ispu_out_fmt):
-            self.ispu_out_fmt_msg_lbl = Label("- Selected ISPU Output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt))
-            layout_tui_flags.add_widget(self.ispu_out_fmt_msg_lbl)
+            self.ispu_out_fmt_msg_lbl = Label("- Selected legacy ISPU output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt))
+        else:
+            self.ispu_out_fmt_msg_lbl = Label("- Selected legacy ISPU output format: None")
+            self.ispu_out_fmt_msg_lbl.custom_colour = "control"
+        layout_tui_flags.add_widget(self.ispu_out_fmt_msg_lbl)
 
         if self._hsd_info_model.tui_flags.time_sec != -1:
             layout_tui_flags.add_widget(Label("- Duration: {}".format(timedelta(seconds = self._hsd_info_model.tui_flags.time_sec))))
@@ -460,9 +466,9 @@ class HSDLoggingView(Frame):
                     self._hsd_info_model.update_sensor_list()
                     self._hsd_info_model.init_sensor_data_counters()
                     
-                    #MLC or ISPU UCF file upload
+                    # MLC or ISPU AI configuration upload.
                     self._hsd_info_model.update_ai_sensor_list()
-                    self._hsd_info_model.upload_ai_ucf_file()
+                    self._hsd_info_model.upload_ai_config_file()
 
                     self._hsd_info_model.update_tag_list()
                     self._hsd_info_model.init_tag_status_list()
@@ -473,20 +479,23 @@ class HSDLoggingView(Frame):
 
                 if self._hsd_info_model.is_log_started:
                     
-                    #MLC sensor GUI update
+                    # AI configuration GUI update.
                     if self._hsd_info_model.tui_flags.ucf_file is not None and os.path.exists(self._hsd_info_model.tui_flags.ucf_file):
-                        self.mlc_msg_lbl.text = "- Selected UCF file: {}".format(self._hsd_info_model.tui_flags.ucf_file)
+                        self.mlc_msg_lbl.text = "- Selected AI config file: {}".format(self._hsd_info_model.tui_flags.ucf_file)
                         self.mlc_msg_lbl.custom_colour = "label"
                         if self._hsd_info_model.mlc_sensor_list is not None and len(self._hsd_info_model.mlc_sensor_list) == 0:
-                            self.mlc_msg_lbl = Label("- Selected UCF file: Ok, but No active MLC or ISPU sensors!")
+                            self.mlc_msg_lbl.text = "- Selected AI config file: Ok, but no active MLC or ISPU sensors!"
                             self.mlc_msg_lbl.custom_colour = "invalid"
                     else:
-                        self.mlc_msg_lbl.text = "- Selected UCF file: No UCF file selected"
+                        self.mlc_msg_lbl.text = "- Selected AI config file: No AI config file selected"
                         self.mlc_msg_lbl.custom_colour = "control"
                     
                     if self._hsd_info_model.tui_flags.ispu_out_fmt is not None and os.path.exists(self._hsd_info_model.tui_flags.ispu_out_fmt):
-                        self.ispu_out_fmt_msg_lbl = Label("- Selected ISPU Output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt))
-                        self.ispu_out_fmt_msg_lbl.custom_colour = "invalid"
+                        self.ispu_out_fmt_msg_lbl.text = "- Selected legacy ISPU output format: {}".format(self._hsd_info_model.tui_flags.ispu_out_fmt)
+                        self.ispu_out_fmt_msg_lbl.custom_colour = "label"
+                    else:
+                        self.ispu_out_fmt_msg_lbl.text = "- Selected legacy ISPU output format: None"
+                        self.ispu_out_fmt_msg_lbl.custom_colour = "control"
 
                     #Log duration management
                     if self._hsd_info_model.tui_flags.time_sec != -1:

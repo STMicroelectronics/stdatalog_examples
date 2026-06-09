@@ -25,7 +25,38 @@ This folder contains a set of examples and tutorials to help you get started wit
 # Update History
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">v1.4.0 / 15-May-26</label>
+<div>
+
+
+## Main Changes
+
+### Maintenance Release
+
+- Refactored and enhance documentation across multiple plugins
+  - Removed unnecessary whitespace and added newlines for code consistency in 0_ML_AI_plugin.py.
+  - Added pylint skip directive to dToF_PeopleCounting plugins to suppress warnings.
+  - Improved docstrings in CSVDataSavePlugin.py for clarity on methods and parameters.
+  - Enhanced comments and docstrings in InclinationGamePlugin.py for better understanding of functionality.
+  - Updated FilterPlugin.py and ProcessPlugin.py with detailed docstrings and comments for clarity.
+  - Added initialization messages and improved logging in HelloWorldPlugin and its status variant.
+  - Implemented GUI functionality in FilterPlugin_GUI.py with appropriate docstrings and comments.
+- Updated examples and documentation to support unified JSON configuration for MLC and ISPU sensors
+- Added JSON configuration examples
+- Refactored sensor streaming example
+  - Deleted the original stdatalog_sensors_streaming.py file.
+  - Introduced stdatalog_sensors_streaming.py for a combined streaming example supporting USB and serial transports.
+  - Created stdatalog_sensors_streaming_common.py to encapsulate shared logic for streaming.
+  - Added stdatalog_sensors_streaming_serial.py for serial-specific streaming functionality.
+  - Introduced stdatalog_sensors_streaming_usb.py for USB/PnPL streaming example.
+
+
+</div>
+:::
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
 <label for="collapse-section5" aria-hidden="true">v1.3.0 / 14-Nov-25</label>
 <div>
 

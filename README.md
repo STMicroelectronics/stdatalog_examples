@@ -51,7 +51,7 @@ This folder contains a set of examples and tutorials to help you get started wit
         - **InclinationGame:**
             - **InclinationGamePlugin.py:** Implements a simple game where the user has to keep a ball within a rectangle by tilting the device.
 
-Furthermore, the **acquisition_examples** folder contains data acquisition examples and device configuration files in UCF and JSON format for SensorTile.box PRO, STWIN.box and STWIN.
+Furthermore, the **acquisition_examples** folder contains data acquisition examples and device configuration files in UCF and JSON format for SensorTile.box PRO, STWIN.box and STWIN. For AI smart sensors such as MLC and ISPU, the examples now prefer the unified `reg_config` JSON format because it can embed both register programming data and output metadata. Legacy `.ucf`-based flows are still available for backward compatibility.
 
 
 ## Usage

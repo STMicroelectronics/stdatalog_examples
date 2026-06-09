@@ -5,15 +5,18 @@
 #  * @author  SRA
 #  * @version 1.0.0
 #  * @date    11-Jul-2024
-# *****************************************************************************
-#
-#                   Copyright (c) 2020 STMicroelectronics.
-#                             All rights reserved
-#
-#   This software component is licensed by ST under BSD-3-Clause license,
-#   the "License"; You may not use this file except in compliance with the
-#   License. You may obtain a copy of the License at:
-#                        https://opensource.org/licenses/BSD-3-Clause
+# ******************************************************************************
+# * @attention
+# *
+# * Copyright (c) 2022 STMicroelectronics.
+# * All rights reserved.
+# *
+# * This software is licensed under terms that can be found in the LICENSE file
+# * in the root directory of this software component.
+# * If no LICENSE file comes with this software, it is provided AS-IS.
+# *
+# *
+# ******************************************************************************
 
 
 import sys
@@ -32,6 +35,9 @@ from stdatalog_core.HSD_utils.DataReader import DataReader
 from stdatalog_core.HSD_utils.DataClass import DataClass
 from stdatalog_core.HSD.utils.type_conversion import TypeConversion
 from datetime import datetime
+
+import stdatalog_core.HSD_utils.logger as logger
+log = logger.get_logger(__name__)
 
 class ReadSerialDataThread(Thread):
     def __init__(self, hsd_link):

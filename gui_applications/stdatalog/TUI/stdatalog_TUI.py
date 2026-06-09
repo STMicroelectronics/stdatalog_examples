@@ -218,22 +218,25 @@ class HSDInfo():
         if self.ispu_sensor_list is not None and len(self.ispu_sensor_list) > 0:
             self.selected_ispu_id = HSDLink.get_ispu_id(self.hsd_link, self.selected_device_id)
 
-    def upload_ai_ucf_file(self):
+    def upload_ai_config_file(self):
+        if self.tui_flags.ucf_file is None:
+            return
+
         if self.selected_mlc_id is not None:
             HSDLink.upload_mlc_ucf_file(self.hsd_link, self.selected_device_id, self.tui_flags.ucf_file)
             self.update_sensor_list()
         if self.selected_ispu_id is not None:
-            HSDLink.upload_ispu_ucf_file(self.hsd_link, self.selected_device_id, self.tui_flags.ucf_file)
+            HSDLink.upload_ispu_ucf_file(self.hsd_link, self.selected_device_id, self.tui_flags.ucf_file, self.tui_flags.ispu_out_fmt)
             self.update_sensor_list()
 
-    def save_ai_ucf_file(self):
+    def save_ai_config_file(self):
         self.output_acquisition_path = HSDLink.get_acquisition_folder(self.hsd_link)
         if self.tui_flags.ucf_file is not None:
-            ucf_filename = os.path.basename(self.tui_flags.ucf_file)
-            shutil.copyfile(self.tui_flags.ucf_file, os.path.join(self.output_acquisition_path, ucf_filename))
-            log.info("{} File correctly saved".format(ucf_filename))
+            config_filename = os.path.basename(self.tui_flags.ucf_file)
+            shutil.copyfile(self.tui_flags.ucf_file, os.path.join(self.output_acquisition_path, config_filename))
+            log.info("{} File correctly saved".format(config_filename))
     
-    def save_ispu_out_fmt_file(self):
+    def save_ispu_out_fmt_file(self): #TODO!
         self.output_acquisition_path = HSDLink.get_acquisition_folder(self.hsd_link)
         if self.tui_flags.ispu_out_fmt is not None:
             shutil.copyfile(self.tui_flags.ispu_out_fmt, os.path.join(self.output_acquisition_path,"ispu_output_format.json"))
@@ -292,8 +295,8 @@ class HSDInfo():
         except Exception as e:
             log.warning(f"Could not save acquisition info JSON file: {e}")
 
-        #Save ISPU output format json file if passed as CLI parameter
-        self.save_ai_ucf_file()
+        # Save AI configuration assets if passed as CLI parameters.
+        self.save_ai_config_file()
         self.save_ispu_out_fmt_file()
         HSDLink.refresh_hsd_link(self.hsd_link) #Needed by HSDLink_v1
 
@@ -308,7 +311,8 @@ def show_help(ctx, param, value):
         click.secho("   python stdatalog_TUI.py -t 10", fg='cyan')
         click.secho("   python stdatalog_TUI.py -i", fg='cyan')
         click.secho("   python stdatalog_TUI.py -t 20 -an your_acq_name -ad your_acq_descr", fg='cyan')
-        click.secho("   python stdatalog_TUI.py -f ..\\STWIN_config_examples\\DeviceConfig.json -u ..\\STWIN_config_examples\\UCF_examples\\ism330dhcx_six_d_position.ucf", fg='cyan')
+        click.secho("   python stdatalog_TUI.py -f ..\\STWIN_config_examples\\DeviceConfig.json -j ..\\..\\..\\ism330dhcx_6d_position_recognition.json", fg='cyan')
+        click.secho("   python stdatalog_TUI.py -u ..\\STWIN_config_examples\\UCF_examples\\ism330dhcx_six_d_position.ucf", fg='cyan')
         ctx.exit()
 
 def validate_duration(ctx, param, value):
@@ -322,17 +326,24 @@ def validate_duration(ctx, param, value):
 @click.option('-an','--acq_name', help="Acquisition name", type=str)
 @click.option('-ad','--acq_desc', help="Acquisition description", type=str)
 @click.option('-f', '--file_config', help="Device configuration file (JSON)", default='')
-@click.option('-u', '--ucf_file', help="UCF Configuration file for MLC or ISPU", default='')
-@click.option('-iof', '--ispu_out_fmt', help="ISPU output format descrition json. If passed, this json will be saved in acquisition folder", default='')
+@click.option('-u', '--ucf_file', help="Legacy AI configuration file for MLC or ISPU (.ucf)", default='')
+@click.option('-j', '--json_file', help="AI configuration file for MLC or ISPU in the new unified JSON format", default='')
+@click.option('-iof', '--ispu_out_fmt', help="Legacy ISPU output format description JSON. Use it only with legacy ISPU .ucf uploads", default='')
 @click.option('-t', '--time_sec', help="Duration of the current acquisition [seconds]", callback=validate_duration, type=int, default=-1)
 @click.option('-i', '--interactive_mode', help="Interactive mode. It allows to select a connected device, get info and start the acquisition process",  is_flag=True, default=False)
 @click.version_option(script_version, '-v', '--version', prog_name="stdatalog_TUI", is_flag=True, help="stdatalog_TUI tool version number")
 @click.option("-h", "--help", is_flag=True, is_eager=True, expose_value=False, callback=show_help, help="Show this message and exit.",)
 
-def hsd_TUI(output_folder, sub_datetime_folder, acq_name, acq_desc, file_config, ucf_file, ispu_out_fmt, time_sec, interactive_mode):
+def hsd_TUI(output_folder, sub_datetime_folder, acq_name, acq_desc, file_config, ucf_file, json_file, ispu_out_fmt, time_sec, interactive_mode):
     last_scene = None
 
-    tui_flags = HSDInfo.TUIFlags(output_folder, sub_datetime_folder, acq_name, acq_desc, file_config, ucf_file, ispu_out_fmt, time_sec, interactive_mode)
+    ai_config_file = json_file if json_file != "" else ucf_file
+    if json_file != "":
+        if ispu_out_fmt != "":
+            log.info("Ignoring legacy ISPU output format file because -j/--json_file was selected.")
+        ispu_out_fmt = ''
+
+    tui_flags = HSDInfo.TUIFlags(output_folder, sub_datetime_folder, acq_name, acq_desc, file_config, ai_config_file, ispu_out_fmt, time_sec, interactive_mode)
     hsd_info = HSDInfo(tui_flags)
 
     while True:

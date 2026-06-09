@@ -5,15 +5,18 @@
 #  * @author  SRA
 #  * @version 1.0.0
 #  * @date    11-Jul-2024
-# *****************************************************************************
-#
-#                   Copyright (c) 2020 STMicroelectronics.
-#                             All rights reserved
-#
-#   This software component is licensed by ST under BSD-3-Clause license,
-#   the "License"; You may not use this file except in compliance with the
-#   License. You may obtain a copy of the License at:
-#                        https://opensource.org/licenses/BSD-3-Clause
+# ******************************************************************************
+# * @attention
+# *
+# * Copyright (c) 2022 STMicroelectronics.
+# * All rights reserved.
+# *
+# * This software is licensed under terms that can be found in the LICENSE file
+# * in the root directory of this software component.
+# * If no LICENSE file comes with this software, it is provided AS-IS.
+# *
+# *
+# ******************************************************************************
 
 
 import sys
@@ -118,12 +121,12 @@ def main():
     print(f"Filtered Sensors: {filtered_sensors}\n")
 
     # Get sensor properties
-    sensor_name = hsd.get_sensor_name(hsd_instance, sensor)
-    sensor_sensitivity = hsd.get_sensor_sensitivity(hsd_instance, sensor)
-    sensor_odr = hsd.get_sensor_odr(hsd_instance, sensor)
-    sensor_measodr = hsd.get_sensor_measodr(hsd_instance, sensor)
-    sensor_fs = hsd.get_sensor_fs(hsd_instance, sensor)
-    sensor_spts = hsd.get_sensor_spts(hsd_instance, sensor)
+    sensor_name = hsd.get_sensor_name(hsd_instance, component)
+    sensor_sensitivity = hsd.get_sensor_sensitivity(hsd_instance, component)
+    sensor_odr = hsd.get_sensor_odr(hsd_instance, component)
+    sensor_measodr = hsd.get_sensor_measodr(hsd_instance, component)
+    sensor_fs = hsd.get_sensor_fs(hsd_instance, component)
+    sensor_spts = hsd.get_sensor_spts(hsd_instance, component)
     # Get sensor properties by name
     sensor_sensitivity_by_name = hsd.get_sensor_sensitivity_by_name(hsd_instance, sensor_name)
     sensor_odr_by_name = hsd.get_sensor_odr_by_name(hsd_instance, sensor_name)
@@ -151,7 +154,7 @@ def main():
     component = hsd.ask_for_component(hsd_instance, only_active=True)
     print(f"Selected Component: {component}\n")
     component_name = hsd.get_component_name(hsd_instance, component)
-    print(f"Selected Component name: {component}\n")
+    print(f"Selected Component name: {component_name}\n")
 
     # Get a specific component by name
     component = hsd.get_component(hsd_instance, component_name)
