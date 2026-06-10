@@ -19,7 +19,6 @@ This folder contains a set of examples and tutorials to help you get started wit
     - **stdatalog_to_unico.py:** Converts data files in a format compatible with **[ST MEMS Studio](https://www.st.com/en/development-tools/mems-studio.html)**
     - **stdatalog_to_wav.py:** Converts data files in wav format.
     - **stdatalog_plot.py:** Plots data files.
-    - **stdatalog_plot_large.py:** Plots large data files ensuring out-of-core plots for large datasets.
     - **stdatalog_hdf5_viewer.py:** Visualizes the content of HDF5 files.
 	- **stdatalog_sensors_streaming.py:** Demonstrates how to set up a threaded data streaming application using the STDatalog SDK.
 - **gui_applications:** Contains a set of ready-to-use graphical applications that demonstrate the functionalities of the **[STDATALOG-PYSDK](https://github.com/STMicroelectronics/stdatalog-pysdk)** leveraging the **stdatalog_gui** in sinergy with all the other SDK packages.
