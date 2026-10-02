@@ -61,7 +61,7 @@ def main():
     mainWindow.setAppTitle("High Speed Datalog Control SW")
     mainWindow.setAppCredits("High Speed Datalog Control SW")
     mainWindow.setWindowTitle("High Speed Datalog Control SW")
-    mainWindow.setAppVersion("v1.0.0")
+    mainWindow.setAppVersion("v1.5.0")
     mainWindow.setLogMsg("Device is logging --> Board Configuration has been disabled.\nNow you can label your acquisition using the [Tags Information] Component")
     mainWindow.showMaximized()
     

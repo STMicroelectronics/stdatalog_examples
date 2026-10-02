@@ -25,7 +25,23 @@ This folder contains a set of examples and tutorials to help you get started wit
 # Update History
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true">v1.5.0 / 18-Sep-26</label>
+<div>
+
+
+## Main Changes
+
+### Maintenance Release
+
+- Replaced pkg_resources (deprecated) with importlib.resources for resource management
+
+
+</div>
+:::
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section6" aria-hidden="true">
 <label for="collapse-section6" aria-hidden="true">v1.4.0 / 15-May-26</label>
 <div>
 
