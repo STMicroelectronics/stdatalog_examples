@@ -1,0 +1,12 @@
+# NotePulse Dependencies
+# Core libraries for audio processing, ML inference, and WebSocket telemetry:
+websockets>=12.0
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Optional: STMicroelectronics SensorTile.box PRO direct USB logging:
+# Installed separately if interfacing directly with ST hardware:
+# pyserial>=3.5
+# (or use the stdatalog-pysdk environment from STMicroelectronics)
