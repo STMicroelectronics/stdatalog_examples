@@ -35,6 +35,7 @@ This folder contains a set of examples and tutorials to help you get started wit
     - **stdatalog_ultrasound_fft:** This example application is designed to work with the **[UltrasoundFFT](https://github.com/STMicroelectronics/fp-sns-datalog2/tree/main/Projects/STM32U585AI-STWIN.box/Applications/UltrasoundFFT)** application FW contained in the **[FP-SNS-DATALOG2](https://github.com/STMicroelectronics/fp-sns-datalog2)** function pack.
         - **ultrasound_fft_app.py:** GUI application to display analog microphone live data and its FFT. These signals are both streamed from the connected device (The FFT is performed directly on the board).
     - **assisted_segmentation.py"":** GUI application to perform assisted segmentation of an existing acquisition.
+	- **notepulse-stm:** GUI application to perform AI-based musical note segmentation, created by students of North Carolina State University under our guidance.
 - **dtk_plugins:** Contains a set of plugins that can be used to create a data processing pipeline, leveraging the **[stdatalog_dtk](https://github.com/STMicroelectronics/stdatalog_dtk)** (**Data Toolkit** framework) to extend **stdatalog_gui** functionalities. Available plugins provides as example are organized as follow in the "tutorial" folder:
     - **simple:**
         - **HelloWorld:**

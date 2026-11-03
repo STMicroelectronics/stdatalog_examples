@@ -1,0 +1,1 @@
+# NotePulse shared package
